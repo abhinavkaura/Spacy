@@ -1,0 +1,20 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Source\BaseClasses\InventoryManager.cs">
+    <Files>
+      <File FileName="Assets\Source\BaseClasses\Tools\Parser.cs" Line="34" Column="49" />
+      <File FileName="Assets\Source\BaseClasses\InventoryManager.cs" Line="33" Column="6" />
+      <File FileName="Assets\Source\BaseClasses\InventoryData.cs" Line="7" Column="65" />
+      <File FileName="Assets\Source\GameController.cs" Line="20" Column="35" />
+      <File FileName="Assets\Source\MainMenuUIController.cs" Line="12" Column="69" />
+      <File FileName="Assets\Source\BaseClasses\Ships\ShipStats.cs" Line="5" Column="1" />
+      <File FileName="Assets\Source\BaseClasses\Ships\Ship.cs" Line="15" Column="35" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="D:\Unity Projects\Space\Assets\Source\BaseClasses\InventoryManager.cs" line="36" column="27" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
