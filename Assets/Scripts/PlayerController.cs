@@ -9,6 +9,11 @@ public class Boundary {
 
 public class PlayerController : MonoBehaviour {
 
+
+    //ShipData for this controller
+    public ShipData m_shipData;
+    public GameObject m_shipModel;
+
     public float speed = 0.01f;
     public Boundary boundary;
     public float tilt;
@@ -18,11 +23,12 @@ public class PlayerController : MonoBehaviour {
     public AudioSource shootSound;
     Locomotion m_locoManager;
     float m_fMovementSpeed = 10.0f;
-
+    Rigidbody m_rigidBody;
     private float nextFire;
     void Start()
     {
         m_locoManager = GetComponent<Locomotion>();    
+        m_rigidBody = m_shipModel.GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -53,14 +59,14 @@ public class PlayerController : MonoBehaviour {
         float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        GetComponent<Rigidbody>().velocity = movement * speed;
+        m_rigidBody.velocity = movement * speed;
         #endif
         //    //Vector3 playerPosition = GetComponent<Rigidbody>().position;
-        GetComponent<Rigidbody>().position = new Vector3
+        m_rigidBody.position = new Vector3
             (
-            Mathf.Clamp(GetComponent<Rigidbody>().position.x, boundary.xMin, boundary.xMax),
+                Mathf.Clamp(m_rigidBody.position.x, boundary.xMin, boundary.xMax),
             0.0f,
-            Mathf.Clamp(GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
+                Mathf.Clamp(m_rigidBody.position.z, boundary.zMin, boundary.zMax)
             
             );
 
