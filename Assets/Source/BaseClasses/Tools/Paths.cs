@@ -10,4 +10,10 @@ public class Paths {
     public static string SHIP_PREFABS = PREFABS + "ShipPrefabs/";
     public static string SHIP_MODELS = SHIP_PREFABS + "Models/";
     public static string SHIP_CONTAINER = SHIP_PREFABS + "Containers/";
+
+    public static string WEAPON_DATA = DATA + "WeaponData/WeaponData.csv";
+    public static string WEAPON_PREFABS = PREFABS + "WeaponPrefabs/";
+    public static string WEAPON_MODELS = WEAPON_PREFABS + "Models/";
+    public static string WEAPON_AMMO = WEAPON_PREFABS + "Ammunition/";
+
 }

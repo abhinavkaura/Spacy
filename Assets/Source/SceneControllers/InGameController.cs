@@ -10,7 +10,6 @@ public class InGameController : MonoBehaviour {
     /////////////////////////////////////////////////////////////////////////////////////////////
 
     Vector3 m_vPlayerStartPosition = new Vector3(0.0f,0.0f,-6.0f);
-    Spawner m_spawner;
     GameObject m_playerShip;
 
     void Start () 
@@ -28,16 +27,22 @@ public class InGameController : MonoBehaviour {
 
     void Init()
     {
-        m_spawner = new Spawner();
         //Don't need to add a player controller, as the spawner does that
         SpawnPlayerShip();
+        AddPlayerWeapons();
         //AssignPlayerController();
     }
 
     void SpawnPlayerShip()
     {
         //Spawn current ship
-        m_playerShip = m_spawner.SpawnShip(InventoryManager.Instance.GetCurrentShipIndex(), m_vPlayerStartPosition, Vector3.zero, true);
+        m_playerShip = Spawner.Instance.SpawnShip(InventoryManager.Instance.GetCurrentShipIndex(), m_vPlayerStartPosition, Vector3.zero, true);
+    }
+
+    void AddPlayerWeapons()
+    {
+        //Adding all the weapons for now, nipun's store/inventory system shall handle this
+        Spawner.Instance.SpawnWeapons(m_playerShip, InventoryManager.Instance.m_allWeapons);
     }
 
     void AssignPlayerController()

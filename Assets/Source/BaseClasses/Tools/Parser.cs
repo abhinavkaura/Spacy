@@ -38,6 +38,40 @@ public class Parser{
 
             ships.Add (new ShipData (name,hull,shield,handling,energy,ePrimary,eSecondary));
         }
+
         return ships;
+    }
+
+    public List<WeaponData> ParseWeaponData(string a_path)
+    {
+        string text = System.IO.File.ReadAllText(a_path);
+        text = text.Trim();
+        List<WeaponData> weapons = new List<WeaponData>();
+        char[] LineSplitSeparators = {'\n'};
+        string[] lines = text.Split(LineSplitSeparators) ;
+
+        foreach(string line in lines)
+        {
+
+            if(line.StartsWith("#"))
+            {
+                continue;
+            }
+
+            string[] fields = line.Split(',');
+            WeaponData.eWeaponNames name = (WeaponData.eWeaponNames)System.Enum.Parse(typeof(WeaponData.eWeaponNames), fields[0]);
+            float rateOfFire = float.Parse(fields[1]);
+            float impactDamage = float.Parse(fields[2]);
+            WeaponData.eWeaponType type = (WeaponData.eWeaponType)System.Enum.Parse(typeof(WeaponData.eWeaponType), fields[3]);
+            bool isAOE = bool.Parse(fields[4]);
+            float blastRadius = float.Parse(fields[5]);
+            float AOEDamage = float.Parse(fields[6]);
+            float falloff = float.Parse(fields[7]);
+            float projectileSpeed = float.Parse(fields[8]);
+
+            weapons.Add (new WeaponData (name,rateOfFire,impactDamage,type,isAOE,blastRadius,AOEDamage,falloff,projectileSpeed));
+        }
+
+        return weapons;
     }
 }

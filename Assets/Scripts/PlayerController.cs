@@ -7,12 +7,14 @@ public class Boundary {
     public float xMin, xMax, zMin, zMax;
 }
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : ShipController {
 
 
     //ShipData for this controller
-    public ShipData m_shipData;
-    public GameObject m_shipModel;
+//    public ShipData m_shipData;
+//    public GameObject m_shipModel;
+//    public List<WeaponData> m_equippedWeapons;
+//    public int m_iCurrentSelectedWeapon = 0;
 
     public float speed = 0.01f;
     public Boundary boundary;
@@ -34,13 +36,13 @@ public class PlayerController : MonoBehaviour {
     void Update()
     {
         KeyBoardControls();
-        if(Input.GetButton("Fire1") && Time.time > nextFire)
-        {
-            nextFire = Time.time + fireRate;
-            Instantiate(bolt, shootPoint.position, shootPoint.rotation);
-            shootSound.Play();
-        }
-
+//        if(Input.GetButton("Fire1") && Time.time > nextFire)
+//        {
+//            nextFire = Time.time + fireRate;
+//            Instantiate(bolt, shootPoint.position, shootPoint.rotation);
+//            shootSound.Play();
+//        }
+        
         if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
             // Get movement of finger since last frame
@@ -48,9 +50,6 @@ public class PlayerController : MonoBehaviour {
             // Move object across the plane.
             transform.Translate(touchDeltaPosition.x * speed,0, touchDeltaPosition.y * speed );
         }
-
-
-       
     }
 
     void FixedUpdate() {
@@ -76,33 +75,37 @@ public class PlayerController : MonoBehaviour {
     void KeyBoardControls()
     {
         KeyBoardMovement();
+        KeyBoardFire();
     }
 
     void KeyBoardMovement()
     {
         if (Input.GetKey(KeyCode.W))
         {
-            m_locoManager.Move(Vector3.forward, m_fMovementSpeed * Time.deltaTime);
+            m_locoManager.MoveTo(Vector3.forward, m_fMovementSpeed);
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            m_locoManager.Move(Vector3.left, m_fMovementSpeed * Time.deltaTime);
+            m_locoManager.MoveTo(Vector3.left, m_fMovementSpeed);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            m_locoManager.Move(Vector3.back, m_fMovementSpeed * Time.deltaTime);
+            m_locoManager.MoveTo(Vector3.back, m_fMovementSpeed);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            m_locoManager.Move(Vector3.right, m_fMovementSpeed * Time.deltaTime);
+            m_locoManager.MoveTo(Vector3.right, m_fMovementSpeed);
         }
     }
 
     void KeyBoardFire()
     {
-        
+        if(Input.GetKey(KeyCode.Space))
+        {
+            base.PressTrigger(m_iCurrentSelectedWeapon);
+        }
     }
 }

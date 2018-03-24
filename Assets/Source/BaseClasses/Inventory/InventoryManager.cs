@@ -23,13 +23,21 @@ public class InventoryManager{
             return m_instance;
         }
     }
-    
+
+    //Master lists
     public List<ShipData> m_allShips;
     public List<WeaponData> m_allWeapons;
-    Parser m_parser;
 
+    //Owned stuff
+    public List<ShipData> m_ownedShips;
+    public List<WeaponData> m_ownedWeapons;
     int m_iCurrentShip;
 
+
+    Parser m_parser;
+    //TODO: How do you wanna handle the loadout? iS it per ship or is it per mission?? Should I just make a dictionary
+    //With the key as the ship and the value as the weapons attached ?? and give the user to modify it every mission/session??
+    //Talk to Nipun about this^
     //Thinking of replacing the list above with a dictionary instead, cuz then we can just do everything with the shipNames enum instead of using an index and list traversal
     Dictionary<ShipData.eShipNames,ShipData> m_dAllShips;
 
@@ -43,6 +51,8 @@ public class InventoryManager{
         SetCurrentShipIndex(0);
     }
 
+
+    #region Ship Code
     void SetupShips()
     {
         //Parse all ships from data files
@@ -55,6 +65,7 @@ public class InventoryManager{
 
             //So, These will be the stored ships. As a master, I didn't really wanna make a copy, but that seems like the best way right now. Every spawned ship will use the ship class prefab stored in the ship class
             //and add the ship class back as a component, also ship is MONO so I still have some quirks to figure out. But it works ?
+            //Just had another idea, whyd on't I just store a path here and just spawn it when I need it??? yea Who's thef uckign genius
             GameObject shipPrefab = (GameObject)Resources.Load(Paths.SHIP_MODELS + m_allShips[i].m_shipName.ToString().ToUpper());
 //            shipPrefab.AddComponent<Ship>();
 
@@ -64,10 +75,6 @@ public class InventoryManager{
         
     }
 
-    void SetupWeapons()
-    {
-        
-    }
 
     public void SetCurrentShipIndex(int iShipIndex)
     {
@@ -78,6 +85,21 @@ public class InventoryManager{
     {
         return m_iCurrentShip;
     }
+    #endregion
 
+    #region Weapon Code
+    void SetupWeapons()
+    {
+        m_allWeapons = m_parser.ParseWeaponData(Paths.WEAPON_DATA);
+
+        for(int i=0; i< m_allWeapons.Count;i++)
+        {
+            
+            GameObject ammoPrefab = (GameObject)Resources.Load(Paths.WEAPON_AMMO + m_allWeapons[i].m_eName.ToString().ToUpper() + "_AMMO");
+            m_allWeapons[i].m_ammoPrefab = ammoPrefab;
+        }
+    }
+
+    #endregion
 
 }
